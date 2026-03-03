@@ -1,0 +1,7 @@
+baseURL = 'https://zurwerra.de/'
+languageCode = 'de'
+title = 'Daniela Zurwerra'
+theme = 'PaperMod'
+
+[params]
+	author = 'Daniela Zurwerra'
