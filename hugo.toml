@@ -1,4 +1,4 @@
-baseURL = 'https://zurwerra.de/'
+baseURL = 'https://d-zurwerra.github.io/zurwerra/'
 languageCode = 'de'
 title = 'Daniela Zurwerra'
 theme = 'PaperMod'
