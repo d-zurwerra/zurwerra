@@ -190,7 +190,7 @@ paths:
       summary: Create LinkedIn Post (Simple)
       description: >-
         Post to LinkedIn with simple input fields - ideal for non-technical
-        users.  Supports text posts and link sharing with preview cards.
+        users. Supports text posts and link sharing with preview cards.
       operationId: CreatePostSimple
       consumes:
         - application/json
@@ -221,7 +221,7 @@ paths:
           type: string
           description: >-
             The text content of your LinkedIn post. URLs in text are
-            automatically clickable  (e.g., "Check this out:
+            automatically clickable (e.g., "Check this out:
             https://example.com"). For link preview cards, use Article URL
             below.
           x-ms-summary: Post Text
@@ -231,8 +231,8 @@ paths:
           type: string
           description: >-
             Optional: URL to share with a preview card (image, title,
-            description).  Leave empty for text-only posts. Example:
-            https://example.com/my-article
+            description). Leave empty for text-only posts.
+            Example: https://example.com/my-article
           x-ms-summary: Article URL (optional)
           x-ms-visibility: advanced
         - name: articleTitle
@@ -250,9 +250,17 @@ paths:
           type: string
           description: >-
             Optional: Description for the article preview card. Only used if
-            Article URL is provided. Example: "A comprehensive guide to
-            leveraging AI..."
+            Article URL is provided.
           x-ms-summary: Article Description (optional)
+          x-ms-visibility: advanced
+        - name: thumbnailUrl
+          in: query
+          required: false
+          type: string
+          description: >-
+            Optional: URL des Vorschaubildes für den Post.
+            Beispiel: https://beispiel.de/images/bild.png
+          x-ms-summary: Thumbnail URL (optional)
           x-ms-visibility: advanced
         - name: visibility
           in: query
@@ -318,18 +326,15 @@ public class Script : ScriptBase
     {
         try
         {
-            // Prüfe welche Operation aufgerufen wird
             if (this.Context.OperationId == "CreatePostSimple")
             {
                 return await this.HandleCreatePostSimple().ConfigureAwait(false);
             }
 
-            // Für alle anderen Operations: Standard-Verhalten
             return await this.Context.SendAsync(this.Context.Request, this.CancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            // Fehler abfangen und saubere Response zurückgeben
             var errorResponse = new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
                 Content = new StringContent(
@@ -348,59 +353,78 @@ public class Script : ScriptBase
         var query = HttpUtility.ParseQueryString(this.Context.Request.RequestUri.Query);
         var personId = query.Get("personId");
         var postText = query.Get("postText");
+        var articleUrl = query.Get("articleUrl");
+        var articleTitle = query.Get("articleTitle");
+        var articleDescription = query.Get("articleDescription");
+        var thumbnailUrl = query.Get("thumbnailUrl");
         var visibility = query.Get("visibility") ?? "PUBLIC";
         var lifecycleState = query.Get("lifecycleState") ?? "PUBLISHED";
 
         // Input-Validierung
         if (string.IsNullOrWhiteSpace(personId))
-        {
             return CreateErrorResponse(HttpStatusCode.BadRequest, "Person ID is required");
-        }
 
         if (string.IsNullOrWhiteSpace(postText))
-        {
             return CreateErrorResponse(HttpStatusCode.BadRequest, "Post text is required");
-        }
 
-        // Person ID Format validieren (nur alphanumerische Zeichen und Bindestriche)
         if (!System.Text.RegularExpressions.Regex.IsMatch(personId, @"^[a-zA-Z0-9\-_]+$"))
-        {
             return CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Person ID format");
-        }
 
-        // Post-Text Länge prüfen (LinkedIn Limit: 3000 Zeichen)
         if (postText.Length > 3000)
-        {
             return CreateErrorResponse(HttpStatusCode.BadRequest, "Post text exceeds 3000 character limit");
-        }
 
-        // Visibility validieren
         if (visibility != "PUBLIC" && visibility != "CONNECTIONS")
-        {
             return CreateErrorResponse(HttpStatusCode.BadRequest, "Visibility must be PUBLIC or CONNECTIONS");
-        }
 
-        // Lifecycle State validieren
         if (lifecycleState != "PUBLISHED" && lifecycleState != "DRAFT")
-        {
             return CreateErrorResponse(HttpStatusCode.BadRequest, "Lifecycle state must be PUBLISHED or DRAFT");
+
+        // ShareContent aufbauen
+        var shareContent = new JObject
+        {
+            ["shareCommentary"] = new JObject
+            {
+                ["text"] = postText
+            }
+        };
+
+        // Artikel-Link einbauen falls vorhanden
+        if (!string.IsNullOrWhiteSpace(articleUrl))
+        {
+            shareContent["shareMediaCategory"] = "ARTICLE";
+
+            var mediaItem = new JObject
+            {
+                ["status"] = "READY",
+                ["originalUrl"] = articleUrl,
+                ["title"] = new JObject { ["text"] = articleTitle ?? "" },
+                ["description"] = new JObject { ["text"] = articleDescription ?? "" }
+            };
+
+            // Thumbnail einbauen falls vorhanden
+            if (!string.IsNullOrWhiteSpace(thumbnailUrl))
+            {
+                mediaItem["thumbnails"] = new JArray
+                {
+                    new JObject { ["url"] = thumbnailUrl }
+                };
+            }
+
+            shareContent["media"] = new JArray { mediaItem };
+        }
+        else
+        {
+            shareContent["shareMediaCategory"] = "NONE";
         }
 
-        // Sichere JSON-Struktur erstellen mit JObject (verhindert Injection)
+        // Vollständigen Request-Body aufbauen
         var requestBody = new JObject
         {
             ["author"] = $"urn:li:person:{personId}",
             ["lifecycleState"] = lifecycleState,
             ["specificContent"] = new JObject
             {
-                ["com.linkedin.ugc.ShareContent"] = new JObject
-                {
-                    ["shareCommentary"] = new JObject
-                    {
-                        ["text"] = postText // Text wird automatisch escaped
-                    },
-                    ["shareMediaCategory"] = "NONE"
-                }
+                ["com.linkedin.ugc.ShareContent"] = shareContent
             },
             ["visibility"] = new JObject
             {
@@ -408,10 +432,9 @@ public class Script : ScriptBase
             }
         };
 
-        // Zu JSON serialisieren mit sicheren Einstellungen
         var jsonBody = requestBody.ToString(Newtonsoft.Json.Formatting.None);
 
-        // Request URI anpassen (entferne /simple und Query-String)
+        // Request URI anpassen
         var originalUri = this.Context.Request.RequestUri.ToString();
         var baseUri = originalUri.Split('?')[0].Replace("/simple", "");
 
@@ -424,10 +447,8 @@ public class Script : ScriptBase
             return CreateErrorResponse(HttpStatusCode.InternalServerError, "Invalid URI format");
         }
 
-        // Content mit UTF-8 Encoding setzen
         this.Context.Request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
-        // Request an LinkedIn senden
         HttpResponseMessage response;
         try
         {
@@ -445,9 +466,6 @@ public class Script : ScriptBase
         return response;
     }
 
-    /// <summary>
-    /// Hilfsmethode zum Erstellen von Fehler-Responses
-    /// </summary>
     private HttpResponseMessage CreateErrorResponse(HttpStatusCode statusCode, string message)
     {
         var errorObject = new JObject
@@ -542,7 +560,7 @@ Als nächsts müssen wir den eigentlichen Text eingeben. Auch. hierbei handelt e
 
 ![Ausgefülltes Textfeld mit einem Text, der genau auf diesen Artikel verweist](/zurwerra/images/PowerAutomate_LinkedIn-Text.png "Screenshot Option Text")
 
-Als nächstes folgen die Informationen zum Artikel. LinkedIn macht daraus direkt einen Link inkl. Vorschau - wer nur einen normalen Post erstellen will, lässt diese drei Felder einfach leer.
+Als nächstes folgen die Informationen zum Artikel. LinkedIn macht daraus direkt einen Link inkl. Vorschau - wer nur einen normalen Post erstellen will, lässt diese vier Felder einfach leer.
 
 ![Ausgefüllte Artikelfelder. Einmal mit dem Link zum Artikel, dann einem kurzen Artikel-Titel und zu guter letzt mit einer Beschreibung zum Artikel](/zurwerra/images/PowerAutomate_ArtikelFelder.png "Screenshot Optionen Artikel")
 
@@ -558,7 +576,9 @@ Wer dann noch festlegen möchte, ob der Post Öffentlich sein soll oder nur den 
 
 Mehr braucht es nicht - einmal abschicken und sich über den veröffentlichten Post freuen.
 
-# Letzte Infos
-Was noch nicht getestet wurde: Verlinkung zu anderen Personen. Daher gibt es hier ggf. nochmal ein Update.
+# Weitere Punkte für eine nächste Version
+- Aktuell habe ich noch keine Bilder in einem normalen Posts integriert - das erfordert einen vorherigen Upload, was eine neue Aktion wäre. Diese Aktion kommt in der nächsten Version rein
 
-Ausserdem läuft das Secret zur App nach 2 Monaten aus - auch hier wird ein weiteres Update erfolgen, wie das Secret vereinfacht erneuert werden kann.
+- das taggen von Personen ist noch nicht getestet und wird ebenfalls in Version zwei ggf. noch mit rein fliessen
+
+- Das Secret der App läuft LinkedIn seitig nach 2 Monaten aus. Auch hier wird es noch eine erweiterung geben, um das Secret vereinfacht zu erneuern.
