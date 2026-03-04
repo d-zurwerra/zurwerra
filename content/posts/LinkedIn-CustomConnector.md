@@ -540,4 +540,25 @@ Fangen wir mit der Person ID an. Diese ist Pflicht und verweist auf die Person, 
 
 Als nächsts müssen wir den eigentlichen Text eingeben. Auch. hierbei handelt es sich logischerweise um ein Pflichtfeld. Und das gute: der Text kann so eingegeben werden, wie er nachher erscheinen soll (Emoji sind also erlaubt)
 
-![Ausgefülltes Textfeld mit einem Text, der genau auf diesen Artikel verweist](/zurwerra/images/PPowerAutomate_LinkedIn-Text.png "Screenshot Option Text")
+![Ausgefülltes Textfeld mit einem Text, der genau auf diesen Artikel verweist](/zurwerra/images/PowerAutomate_LinkedIn-Text.png "Screenshot Option Text")
+
+Als nächstes folgen die Informationen zum Artikel. LinkedIn macht daraus direkt einen Link inkl. Vorschau - wer nur einen normalen Post erstellen will, lässt diese drei Felder einfach leer.
+
+![Ausgefüllte Artikelfelder. Einmal mit dem Link zum Artikel, dann einem kurzen Artikel-Titel und zu guter letzt mit einer Beschreibung zum Artikel](/zurwerra/images/PowerAutomate_ArtikelFelder.png "Screenshot Optionen Artikel")
+
+Und (fast) zum Schluss wird noch bestimmt, ob der Post direkt gepublished werden soll oder erst mal als Entwurf hochgeladen. Letzters ist sinnvoll, wenn man nochmal nachprüfen oder den Post innerhalb von Linkedin vorplanen möchte.
+
+![Lifecycle Informationen zum Post wie direkt Publishen oder Entwurf können per Dropdown ausgewählt werden](/zurwerra/images/PowerAutomate_CustomConnector_Lifecylcle.png "Screenshot Optionen Lifecycle")
+
+Wer dann noch festlegen möchte, ob der Post Öffentlich sein soll oder nur den Kontakten zur Verfügung stehen soll, kann dies über die Option **Visibility**
+
+![Visibility Informationen, um den Post Public oder auf Connections zu setzen](/zurwerra/images/PowerAutomate_CustomConnector_Visibility.png "Screenshot Optionen Visibility")
+
+**FERTIG**
+
+Mehr braucht es nicht - einmal abschicken und sich über den veröffentlichten Post freuen.
+
+# Letzte Infos
+Was noch nicht getestet wurde: Verlinkung zu anderen Personen. Daher gibt es hier ggf. nochmal ein Update.
+
+Ausserdem läuft das Secret zur App nach 2 Monaten aus - auch hier wird ein weiteres Update erfolgen, wie das Secret vereinfacht erneuert werden kann.
