@@ -1,7 +1,23 @@
 baseURL = 'https://d-zurwerra.github.io/zurwerra/'
 languageCode = 'de'
+defaultContentLanguage = 'de'
 title = 'Daniela Zurwerra'
 theme = 'PaperMod'
+paginate = 10
 
 [params]
-	author = 'Daniela Zurwerra'
+  author = 'Daniela Zurwerra'
+  description = 'Power Platform, Automatisierung und mehr'
+  keywords = ['Power Platform', 'Power Automate', 'Low Code', 'Automatisierung']
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  defaultTheme = 'auto'
+
+  [params.cover]
+    hiddenInList = true
+
+[[params.socialIcons]]
+  name = 'linkedin'
+  url = 'https://www.linkedin.com/in/danielazurwerra/'

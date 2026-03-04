@@ -8,6 +8,7 @@ categories: []
 cover:
   image: '/zurwerra/images/daniela.jpeg'
   alt: 'Daniela Zurwerra'
+  hiddenInList: true
 ---
 
 # Hallo...
