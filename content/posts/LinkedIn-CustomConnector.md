@@ -12,7 +12,7 @@ cover:
 ---
 Mit diesem Custom Connector ist es möglich, ganz normale LinkedIn Post zu erstellen. Sehr von Vorteil, wenn der Content zum Beispiel in einer SharePoint Liste vorbereitet und nur noch hochgepusht werden soll.
 
-> **Hinweis:** Wer den Custom Connector nicht selbst erstellen möchte, findet ihn hier [LinkedIn CustomConnector Repository von Daniela Zurwerra](https://github.com/d-zurwerra/LinkedIn-CustomConnector "LinkedIn CustomConnector Repository")  zum herunterladen. Die Voraussetzungen müssen allerdings dennoch geschaffen werden, da ansonsten die Gegenseite fehlt
+> **Hinweis:** Wer den Custom Connector nicht selbst erstellen möchte, findet ihn hier [LinkedIn CustomConnector Repository](https://github.com/d-zurwerra/LinkedIn-CustomConnector "LinkedIn CustomConnector Repository")  zum herunterladen. Die Voraussetzungen müssen allerdings dennoch geschaffen werden, da ansonsten die Gegenseite fehlt
 
 # Voraussetzungen
 
