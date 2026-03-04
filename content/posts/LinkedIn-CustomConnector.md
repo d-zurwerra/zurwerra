@@ -1,7 +1,7 @@
 ---
 title: 'LinkedIn CustomConnector'
-date: '2026-03-03'
-draft: true
+date: '2026-03-04'
+draft: false
 description: 'Wie kann ich LinkedIn-Posts per PowerAutomate erstellen'
 tags: []
 categories: []

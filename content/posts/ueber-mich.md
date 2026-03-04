@@ -9,6 +9,7 @@ cover:
   image: '/zurwerra/images/daniela.jpeg'
   alt: 'Daniela Zurwerra'
   hiddenInList: true
+weight: 1
 ---
 
 # Hallo...
