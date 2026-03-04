@@ -2,7 +2,7 @@
 title: 'LinkedIn CustomConnector'
 date: '2026-03-04'
 draft: false
-description: 'Wie ihr mit einem Custom Connector und Power Automate LinkedIn Posts direkt aus SharePoint heraus automatisiert erstellen könnt – inklusive vereinfachter Oberfläche ohne JSON-Kenntnisse.'
+description: 'description: 'Wie ihr mit einem Custom Connector und Power Automate LinkedIn Posts direkt aus SharePoint heraus automatisiert erstellen könnt – Schritt für Schritt erklärt, inklusive vereinfachter Oberfläche ohne JSON-Kenntnisse.'
 tags: []
 categories: []
 cover:
