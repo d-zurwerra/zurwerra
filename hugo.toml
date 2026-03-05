@@ -1,19 +1,31 @@
-baseURL = 'https://d-zurwerra.github.io/zurwerra/'
+baseURL = 'https://the-raccoon-way.de/'
 languageCode = 'de'
 defaultContentLanguage = 'de'
-title = 'Daniela Zurwerra'
+title = 'The Raccoon Way'
 theme = 'PaperMod'
 paginate = 10
 
 [params]
   author = 'Daniela Zurwerra'
-  description = 'Power Platform, Automatisierung und mehr'
+  description = 'From No-Code to No-Limits'
   keywords = ['Power Platform', 'Power Automate', 'Low Code', 'Automatisierung']
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   defaultTheme = 'auto'
+
+[params.profileMode]
+    enabled = true
+    title = 'The Raccoon Way'
+    subtitle = 'From No-Code to No-Limits'
+    imageUrl = '/images/Raccoon-Sticker.png'
+    imageWidth = 200
+    imageHeight = 200
+    imageTitle = 'The Raccoon Way'
+    [[params.profileMode.buttons]]
+      name = 'Blog'
+      url = '/posts'
 
   [params.cover]
     hiddenInList = true

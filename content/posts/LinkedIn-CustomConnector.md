@@ -6,7 +6,7 @@ description: 'Wie ihr mit einem Custom Connector und Power Automate LinkedIn Pos
 tags: []
 categories: []
 cover:
-  image: 'https://d-zurwerra.github.io/zurwerra/images/Artikel_CustomConnector_LinkedIn.png'
+  image: 'https://d-zurwerra.github.io/images/Artikel_CustomConnector_LinkedIn.png'
   alt: 'LinkedIn Custom Connector'
   hiddenInList: true
 ---
@@ -29,7 +29,7 @@ Damit sind die Vorraussetzungen aus LinkedIn Perspektive schon erledigt.
 Um den Custom Connector zu erstellen nutzen wir als Grundlage eine Solution.
 Darin erstellen wir einen neuen Custom Connector.
 
-![Screenshot vom Erstellen eines Custom Connectors. New, dann Automation und dann Custom Connector auswählen](/zurwerra/images/CustomConnector_erstellen.png "Screenshot Custom Connector erstellen")
+![Screenshot vom Erstellen eines Custom Connectors. New, dann Automation und dann Custom Connector auswählen](/images/CustomConnector_erstellen.png "Screenshot Custom Connector erstellen")
 
 ## General
 Auf der ersten Seite füllen wir den Host und Base aus
@@ -40,7 +40,7 @@ Auf der ersten Seite füllen wir den Host und Base aus
 |Base|/v2|‚
 
 CustomConnector_General
-![Screenshot von der General Seite des Custom Connectors. Man sieht einen Waschbären als Icon, darunter die Description "Custom Connector for posting to LinkedIn via API" und unten drunter die Felder Host und Base, die mit den oben genannten Werten ausgefüllt sind.](/zurwerra/images/CustomConnector_General.png "Screenshot Custom Connector General Reiter")
+![Screenshot von der General Seite des Custom Connectors. Man sieht einen Waschbären als Icon, darunter die Description "Custom Connector for posting to LinkedIn via API" und unten drunter die Felder Host und Base, die mit den oben genannten Werten ausgefüllt sind.](/images/CustomConnector_General.png "Screenshot Custom Connector General Reiter")
 
 ## Security
 Im Reiter **Security** wir **OAuth 2.0** als **Authentication Type**.
@@ -59,11 +59,11 @@ Die darauf folgenden Felder werden wie folgt gefüllt:
 
 Danach wird der CustomConnector per **Create Connector** erstellt, da nur so die Redirect URL am unteren Ende generiert wird.
 
-![Screenshot von der erstellten CustomConnector Redirect URL](/zurwerra/images/CustomConnector_RedirectURL.png "Screenshot Custom Connector Redirect URL")
+![Screenshot von der erstellten CustomConnector Redirect URL](/images/CustomConnector_RedirectURL.png "Screenshot Custom Connector Redirect URL")
 
 Diese URL bitte einmal kopieren und in die Redirect URL in der App auf LinkedIn hinzufügen.
 
-![Screenshot von der der eingetragenen Redirect URL in der LinkedIn App](/zurwerra/images/LinkedIn_RedirectURL.png "Screenshot LinkedIn App Redirect URL")
+![Screenshot von der der eingetragenen Redirect URL in der LinkedIn App](/images/LinkedIn_RedirectURL.png "Screenshot LinkedIn App Redirect URL")
 
 ## Definitionen
 
@@ -73,11 +73,11 @@ Als nächsten Step geht es an die Definitionen. Heisst: Welche Aktionen und/oder
 - **CreatePost**: Damit erstellen wir einen LinkedIn Post mit einem mitgeschickten JSON
 - **CreatePostSimple**: Auch hier wird ein LinkedIn Post erstellt. Das JSON wird allerdings benutzerfreundlicher aufbereitet, so dass der User die notwendigen Informationen direkt in Power Automate ausfüllen kann. Wichtig an der Stelle: die Aktion ist in diesem Step noch genau die gleiche - die "Magie" passiert über den Code
 
-![Screenshot von der der Aktion GetUserInfo](/zurwerra/images/CustomConnector_GetUserInfo.png "Screenshot GetUserInfo")
+![Screenshot von der der Aktion GetUserInfo](/images/CustomConnector_GetUserInfo.png "Screenshot GetUserInfo")
 
-![Screenshot von der der Aktion CreatePost](/zurwerra/images/CustomConnector_CreatePost.png "Screenshot CreatePost")
+![Screenshot von der der Aktion CreatePost](/images/CustomConnector_CreatePost.png "Screenshot CreatePost")
 
-![Screenshot von der der Aktion CreatePostSimple](/zurwerra/images/CustomConnector_CreatePost_Simple.png "Screenshot CreatePostSimple")
+![Screenshot von der der Aktion CreatePostSimple](/images/CustomConnector_CreatePost_Simple.png "Screenshot CreatePostSimple")
 
 > **Hinweis:** Die einzelnen Aktionen könnt ihr über den Swagger-Editor mit den nachfolgenden Zeilen einfügen. Hierzu einfach den Punkt Path mit dem Code ersetzen. Den kompletten Swagger-Eintrag gibt es ebenfalls im Repository auf Github
 
@@ -502,17 +502,17 @@ Bevor mit dem eigentlichen Posten starten können, benötigen wir die **Person I
 
 Um die Aktion hinzuzufügen, klicken wir auf das Plus, wählen dann als Connector "Custom".
 
-![Bereich Custom auswählen, um den neuen Custom Connector zu finden](/zurwerra/images/PowerAutomate_CustomConnector_Auswahl.png "Screenshot Auswahl Custom Connector")
+![Bereich Custom auswählen, um den neuen Custom Connector zu finden](/images/PowerAutomate_CustomConnector_Auswahl.png "Screenshot Auswahl Custom Connector")
 
 und dann die Aktion **Get User Info**
 
-![Es werden die drei erstellten Aktionen angezeigt. Hier dann die Aktion Get User Info auswählen](/zurwerra/images/PowerAutomate_CustomConnector_Aktionen.png "Screenshot Aktionen Custum Connector")
+![Es werden die drei erstellten Aktionen angezeigt. Hier dann die Aktion Get User Info auswählen](/images/PowerAutomate_CustomConnector_Aktionen.png "Screenshot Aktionen Custum Connector")
 
 Wenn wir die Aktion das erste Mal durchführen bzw. noch keine Connection-Informationen vorhanden sind, müssen wir uns einmal anmelden.
 
-![Aufforderung, eine Connection zu erstellen (oder auszuwählen)](/zurwerra/images/PowerAutomate_CustomConnector_Connection.png "Screenshot Connection erstellen")
+![Aufforderung, eine Connection zu erstellen (oder auszuwählen)](/images/PowerAutomate_CustomConnector_Connection.png "Screenshot Connection erstellen")
 
-![LinkedIn Loginfenster, mit dem die Connection erstellt wird](/zurwerra/images/PowerAutomate_LinkedIn_Login.png "Screenshot LinkedIn LoginFenster")
+![LinkedIn Loginfenster, mit dem die Connection erstellt wird](/images/PowerAutomate_LinkedIn_Login.png "Screenshot LinkedIn LoginFenster")
 
 Für die Aktion "Get User Info" sind keine weiteren Einträge notwendig.
 
@@ -522,7 +522,7 @@ Jetzt können wir unseren Post erstellen. Wie im Vorfeld schon definiert, haben 
 ### Aktion: Create LinkedIn Post
 Wenn wir einen Post per JSON hinzufügen wollen, dann können wir die Aktion **Create LinkedIn Post** nutzen. Diese wie gewohnt hinzufügen und das JSON ausfüllen
 
-![Screenshot der CreatePost Aktion](/zurwerra/images/PowerAutomate_CreatePost.png "Screenshot CreatePost")
+![Screenshot der CreatePost Aktion](/images/PowerAutomate_CreatePost.png "Screenshot CreatePost")
 
 Als Beispiel hier direkt ein mögliches JSON
 
@@ -548,29 +548,29 @@ Anschliessend abschicken - und schon ist dein Post erstellt
 ### LinkedIn Post einfacher erstellen
 Damit es auch für Menschen, die vielleicht kein JSON erstellen wollen, einfacher ist, gibt es die Aktion **Create LinkedIn Post (simple)**
 
-![Screenshot der Aktion CreatePost Simple.](/zurwerra/images/PowerAutomate_CustomConnector_PostSimple.png "Screenshot CreatePost (Simple)")
+![Screenshot der Aktion CreatePost Simple.](/images/PowerAutomate_CustomConnector_PostSimple.png "Screenshot CreatePost (Simple)")
 
 Zugegeben, es sind viele Optionen, die ausgefüllt werden können und teilweise müssen. Jede davon hat allerdings eine eigene Description, die erklärt, was hier reingehört.
 
 Fangen wir mit der Person ID an. Diese ist Pflicht und verweist auf die Person, die den Post erstellen soll. Die Info zur ID bekommen wir über die Aktion "Get User Info"
 
-![Ausgefüllte Person ID. Information kommt aus der Aktion Get User Info und wird hier nur eingefügt](/zurwerra/images/PowerAutomate_PersonID.png "Screenshot Option Person ID")
+![Ausgefüllte Person ID. Information kommt aus der Aktion Get User Info und wird hier nur eingefügt](/images/PowerAutomate_PersonID.png "Screenshot Option Person ID")
 
 Als nächsts müssen wir den eigentlichen Text eingeben. Auch. hierbei handelt es sich logischerweise um ein Pflichtfeld. Und das gute: der Text kann so eingegeben werden, wie er nachher erscheinen soll (Emoji sind also erlaubt)
 
-![Ausgefülltes Textfeld mit einem Text, der genau auf diesen Artikel verweist](/zurwerra/images/PowerAutomate_LinkedIn-Text.png "Screenshot Option Text")
+![Ausgefülltes Textfeld mit einem Text, der genau auf diesen Artikel verweist](/images/PowerAutomate_LinkedIn-Text.png "Screenshot Option Text")
 
 Als nächstes folgen die Informationen zum Artikel. LinkedIn macht daraus direkt einen Link inkl. Vorschau - wer nur einen normalen Post erstellen will, lässt diese vier Felder einfach leer.
 
-![Ausgefüllte Artikelfelder. Einmal mit dem Link zum Artikel, dann einem kurzen Artikel-Titel und zu guter letzt mit einer Beschreibung zum Artikel](/zurwerra/images/PowerAutomate_ArtikelFelder.png "Screenshot Optionen Artikel")
+![Ausgefüllte Artikelfelder. Einmal mit dem Link zum Artikel, dann einem kurzen Artikel-Titel und zu guter letzt mit einer Beschreibung zum Artikel](/images/PowerAutomate_ArtikelFelder.png "Screenshot Optionen Artikel")
 
 Und (fast) zum Schluss wird noch bestimmt, ob der Post direkt gepublished werden soll oder erst mal als Entwurf hochgeladen. Letzters ist sinnvoll, wenn man nochmal nachprüfen oder den Post innerhalb von Linkedin vorplanen möchte.
 
-![Lifecycle Informationen zum Post wie direkt Publishen oder Entwurf können per Dropdown ausgewählt werden](/zurwerra/images/PowerAutomate_CustomConnector_Lifecylcle.png "Screenshot Optionen Lifecycle")
+![Lifecycle Informationen zum Post wie direkt Publishen oder Entwurf können per Dropdown ausgewählt werden](/images/PowerAutomate_CustomConnector_Lifecylcle.png "Screenshot Optionen Lifecycle")
 
 Wer dann noch festlegen möchte, ob der Post Öffentlich sein soll oder nur den Kontakten zur Verfügung stehen soll, kann dies über die Option **Visibility**
 
-![Visibility Informationen, um den Post Public oder auf Connections zu setzen](/zurwerra/images/PowerAutomate_CustomConnector_Visibility.png "Screenshot Optionen Visibility")
+![Visibility Informationen, um den Post Public oder auf Connections zu setzen](/images/PowerAutomate_CustomConnector_Visibility.png "Screenshot Optionen Visibility")
 
 **FERTIG**
 

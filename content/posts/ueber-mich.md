@@ -6,7 +6,7 @@ description: 'Wer ich bin und warum ich diesen Blog schreibe'
 tags: []
 categories: []
 cover:
-  image: '/zurwerra/images/daniela.jpeg'
+  image: '/images/daniela.jpeg'
   alt: 'Daniela Zurwerra'
   hiddenInList: true
 weight: 1
