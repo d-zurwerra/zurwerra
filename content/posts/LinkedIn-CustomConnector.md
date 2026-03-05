@@ -6,7 +6,7 @@ description: 'Wie ihr mit einem Custom Connector und Power Automate LinkedIn Pos
 tags: []
 categories: []
 cover:
-  image: 'https://d-zurwerra.github.io/images/Artikel_CustomConnector_LinkedIn.png'
+  image: 'https://the-raccoon-way.de/images/Artikel_CustomConnector_LinkedIn.png'
   alt: 'LinkedIn Custom Connector'
   hiddenInList: true
 ---
