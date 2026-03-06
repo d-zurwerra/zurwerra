@@ -15,11 +15,11 @@ paginate = 10
   ShowCodeCopyButtons = true
   defaultTheme = 'auto'
 
-[params.analytics.umami]
-  websiteID = 'af09530a-757f-4427-ac84-f5f3452f3000'
-  jsURL = 'https://cloud.umami.is/script.js'
+  [params.analytics.umami]
+    websiteID = 'af09530a-757f-4427-ac84-f5f3452f3000'
+    jsURL = 'https://cloud.umami.is/script.js'
 
-[params.profileMode]
+  [params.profileMode]
     enabled = true
     title = 'The Raccoon Way'
     subtitle = 'From No-Code to No-Limits'
