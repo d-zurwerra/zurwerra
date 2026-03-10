@@ -37,3 +37,8 @@ paginate = 10
 [[params.socialIcons]]
   name = 'linkedin'
   url = 'https://www.linkedin.com/in/danielazurwerra/'
+
+[[menu.footer]]
+  name = 'Impressum'
+  url = '/impressum/'
+  weight = 10
