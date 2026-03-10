@@ -38,7 +38,7 @@ paginate = 10
   name = 'linkedin'
   url = 'https://www.linkedin.com/in/danielazurwerra/'
 
-[[menu.footer]]
+[[menu.main]]
   name = 'Impressum'
   url = '/impressum/'
-  weight = 10
+  weight = 20
