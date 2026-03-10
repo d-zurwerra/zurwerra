@@ -1,6 +1,6 @@
 ---
 title: 'Impressum'
-date: '10-03-2026'
+date: 2026-03-10
 draft: false
 robots: "noindex, nofollow"
 ---
