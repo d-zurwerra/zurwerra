@@ -1,6 +1,6 @@
 ---
 title: 'Über mich'
-date: #2026-03-03'
+date: 2026-03-03
 draft: false
 description: 'Wer ich bin und warum ich diesen Blog schreibe'
 tags: []
