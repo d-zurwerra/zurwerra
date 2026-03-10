@@ -38,6 +38,10 @@ paginate = 10
   name = 'linkedin'
   url = 'https://www.linkedin.com/in/danielazurwerra/'
 
+[[params.socialIcons]]
+  name = 'youtube'
+  url = 'https://www.youtube.com/@TheRaccoonWay'
+
 [[menu.main]]
   name = 'Impressum'
   url = '/impressum/'
