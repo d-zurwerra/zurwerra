@@ -43,6 +43,11 @@ paginate = 10
   url = 'https://www.youtube.com/@TheRaccoonWay'
 
 [[menu.main]]
+  name = 'Kategorien'
+  url = '/categories/'
+  weight = 10
+
+[[menu.main]]
   name = 'Impressum'
   url = '/impressum/'
   weight = 20
