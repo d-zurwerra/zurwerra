@@ -1,7 +1,7 @@
 ---
 title: 'Jira trifft Power Automate – wenn der Standard Connector nicht reicht'
 date: '2026-03-24'
-draft: true
+draft: false
 description: 'Wie man mit HTTP Requests statt dem Standard Connector Jira Formulare ausliest und die Daten in Power Automate weiterverarbeitet – inklusive Lösungsansatz und praktischem Beispiel.'
 tags: ['Power Automate', 'Jira', 'HTTP Request', 'Tutorial', 'API']
 categories: ['Power Platform']
@@ -13,6 +13,7 @@ Stell dir vor, du hast in deinem Unternehmen schon einen vollständig automatisi
 Wie cool ist das denn?
 
 Bei meinem Kunden wurde genau das bereits realisiert - und nun gab es eine erweiterte Anforderung, die wir mit Power Automate und Azure Functions umgesetzt haben.
+
 # Neue Anforderung
 
 Wenn für das Team "Projektmanagement" als Vorlage ausgewählt wurde, sollen weitere Schritte erfolgen:
@@ -28,6 +29,7 @@ Bislang wurden diese Steps von einem Admin erledigt, sobald das Team erstellt wa
 Auf Kundenseite wurde eine Azure Logic App erstellt, die die benötigten Schritte abdecken soll. Als Trigger fungiert ein HTTP Request, über welchen der Flow die Group ID des neuen Teams mitbekommt und alles weitere eigenständig erledigt - aber wie bekommt der Trigger die Info, dass ein neues Ticket zur Bearbeitung vorliegt?
 
 > ℹ️ **Hinweis:** Auf die Azure Logic App gehe ich in einem späteren Post genauer ein
+
 ## Schon mal von Jira Forms gehört?
 
 Relativ schnell war klar, die Info zum Start (inkl. der GUID) muss von Jira kommen. Also habe ich mir angeschaut, wo die Info im Ticket steht und was Power Automate im Standard hergibt.
@@ -60,7 +62,7 @@ Ausserdem werde ich als weiteres noch die URL der REST-Gegenseite (https://conto
 
 ### Alle Tickets abrufen
 
-Jedes Teams- (und damit Projektmanagement-) Ticket hat den gleichen Betreff und landet im gleichen Team. Dadurch kann ich nun alle Tickets in unserem Team abrufen, die den Betreff 'Microsoft Teams erstellen' haben und noch nicht auf dem Status 'done' sind. Damit finde ich alle für uns relevanten Tickets und können mit diesen Informationen weiter arbeiten.
+Jedes Teams- (und damit Projektmanagement-) Ticket hat den gleichen Betreff und landet im gleichen Team. Dadurch kann ich nun alle Tickets in unserem Team abrufen, die den Betreff 'Microsoft Teams erstellen' haben und noch nicht auf dem Status 'done' sind. Damit finde ich alle für uns relevanten Tickets und kann mit diesen Informationen weiter arbeiten.
 
 ![POST JiraURL/search/jql](/images/Pasted_image_20260323192709.png "Screenshot URI und Method zum Ticket Abruf")
 
@@ -87,7 +89,7 @@ Heisst: ich benötige zwei Schritte.
 ![GET auf Jira/forms/cloud/CloudID/issue/key/form/FormID/format/answers](/images/Pasted_image_20260323193112.png "Screenshot Get Forms Answer")
 ### Filtern auf Projektmanagement-Tickets
 
-Wenn ich die Antworten habe, gehe ich diese Step by Step durch und prüfe, ob es sich bei diesem Ticket um ein Ticket mit Vorlage "Projektmanagement" handelt. Bei sieht das dann so aus:
+Wenn ich die Antworten habe, gehe ich diese Step by Step durch und prüfe, ob es sich bei diesem Ticket um ein Ticket mit Vorlage "Projektmanagement" handelt. Bei mir sieht das dann so aus:
 
 ![Condition, in der geprüft wird, ob als Antwort "Projektmanagement" steht](/images/Pasted_image_20260323193215.png "Screenshot Condition template = Projektmanagement")
 
@@ -115,7 +117,7 @@ Wenn hier nun 'approved' drin steht, darf das zugehörige Teams etc. erstellt we
 ![Condition, ob Final Desicion (code oben) = approved ist](/images/Pasted_image_20260323194550.png "Screenshot Approval")
 
 ## Nun nur noch die GUID rauslesen...
-Nachdem das Approval durch ist, wird durch einen bereits vorhandenen Prozess das Teams Team erstellt. Die passiert in drei Schritten, die jeweils in Jira als Kommentar notiert wird:
+Nachdem das Approval durch ist, wird durch einen bereits vorhandenen Prozess das Teams Team erstellt. Dies passiert in drei Schritten, die jeweils in Jira als Kommentar notiert wird:
 
 ### Schritt 1: die Eingaben im Formular werden überprüft
 Zuerst werden die getätigten Angaben im Formular überprüft, um sicher zu stellen, dass die Emailadressen korrekt sind, dass die User auch interne User sind und dass Owner und Co-Owner unterschiedliche User sind. In Jira sieht das dann wie folgt aus:
@@ -129,7 +131,7 @@ Der Schritt zur Erstellung des Teams sieht dann in der Doku so aus:
 ![Rückinfo, dass das Team erstellt wird](/images/Pasted_image_20260324145229.png "Screenshot Team wird erstellt")
 
 ### Schritt 3: Team ist erfolgreich erstellt worden
-Wenn das Team bzw. die M365 erfolgreich erstellt wurde, bekommen wir darüber eine letzte Notiz, die für den weiteren Prozess zwei wichtige Punkte enthält:
+Wenn das Team bzw. die M365 Gruppe erfolgreich erstellt wurde, bekommen wir darüber eine letzte Notiz, die für den weiteren Prozess zwei wichtige Punkte enthält:
 - die Info, dass der Prozess erfolgreich durchgeführt wurde
 - die ID der M365 Gruppe
 ![Team erfolgreich erstellt. Inkl. Angaben zu ID, Displayname, Description etc.](/images/Pasted_image_20260324145605.png "Screenshot Team erstellt")
