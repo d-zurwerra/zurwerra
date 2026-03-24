@@ -5,6 +5,10 @@ draft: false
 description: 'Wie man mit HTTP Requests statt dem Standard Connector Jira Formulare ausliest und die Daten in Power Automate weiterverarbeitet – inklusive Lösungsansatz und praktischem Beispiel.'
 tags: ['Power Automate', 'Jira', 'HTTP Request', 'Tutorial', 'API']
 categories: ['Power Platform']
+cover:
+  image: 'https://the-raccoon-way.de/images/IMG_0585.png'
+  alt: 'Jira trifft Power Automate'
+  hiddenInList: true
 ---
 # Ausgangssituation
 
