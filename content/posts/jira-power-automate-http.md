@@ -34,7 +34,7 @@ Relativ schnell war klar, die Info zum Start (inkl. der GUID) muss von Jira komm
 
 Jira kann eigene Formulare erstellen und mit diesen arbeiten. Sieht dann wie folgt in Jira aus:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260324143213.png "Screenshot Titel")
+![Jira Form, in dem Vorlage, Besitzer etc. abgefragt werden](/images/Pasted_image_20260324143213.png "Screenshot Jira Form")
 
 Das ist grossartig, wenn es ums standardisierte Eingaben geht, allerdings etwas hinderlich, wenn per Jira Connector in Power Automate die Information ausgelesen werden soll. Denn: Der Connector kennt keine Forms.
 
@@ -49,29 +49,29 @@ Zum Start erstelle ich einen scheduled Flow, der täglich um 9 Uhr los läuft.
 ### Secret
 
 Wenn ich auf Jira per REST API zugreifen will, benötige ich ein Secret. Dieses kann ich mir in meinem Fall direkt in Jira erstellen. Dazu gehe ich meine Accountsettings, wechsle in den Reiter Security und erstell mir dann ein neues Secret
-  ![Alternativer Text zur Erklärung](/images/Pasted_image_20260323192214.png "Screenshot Titel")
+  ![Secret Erstellung über Jira, Accountsettings und Security](/images/Pasted_image_20260323192214.png "Screenshot Secret für Jira")
 ### Variablen
 
 Die Infos gebe ich dann auch direkt im Power Automate Flow als Variable ein, damit ich diese nicht an x Stellen immer wieder eingeben und ggf. ändern muss.
 
 Ausserdem werde ich als weiteres noch die URL der REST-Gegenseite (https://contoso.atlassian.net/rest/servicedeskapi) häufiger benötigen, daher definiere ich diese ebenfalls direkt:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323192333.png "Screenshot Titel")
+![Definition der REST URL für Power Automate](/images/Pasted_image_20260323192333.png "Screenshot VariablenDefinition")
 
 ### Alle Tickets abrufen
 
 Jedes Teams- (und damit Projektmanagement-) Ticket hat den gleichen Betreff und landet im gleichen Team. Dadurch kann ich nun alle Tickets in unserem Team abrufen, die den Betreff 'Microsoft Teams erstellen' haben und noch nicht auf dem Status 'done' sind. Damit finde ich alle für uns relevanten Tickets und können mit diesen Informationen weiter arbeiten.
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323192709.png "Screenshot Titel")
+![POST JiraURL/search/jql](/images/Pasted_image_20260323192709.png "Screenshot URI und Method zum Ticket Abruf")
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323192729.png "Screenshot Titel")
+![Body zum Ticketabruf](/images/Pasted_image_20260323192729.png "Screenshot Body zum Ticketabruf")
 
 Die Authentifizierung läuft bei allen HTTP-Aktionen über Basic Auth:
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323192801.png "Screenshot Titel")
+![BasicAuthentifizierung mit Jira Usernamen und Secret](/images/Pasted_image_20260323192801.png "Screenshot Authentifizierung")
 
 Die Antwort auf diese Aktion parse ich einmal, damit die nachfolgenden Steps einfacher werden:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323192958.png "Screenshot Titel")
+![Parse Ergebnis aus dem HTTP Request](/images/Pasted_image_20260323192958.png "Screenshot Parse HTTP Body")
 
 ### Form abrufen
 
@@ -81,15 +81,16 @@ Heisst: ich benötige zwei Schritte.
 
 1. um die ID zu finden:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323193033.png "Screenshot Titel")
+![URI auf Jira/forms/cloud/CloudID/issue/key/form](/images/Pasted_image_20260323193033.png "Screenshot Abruf Form ID")
 
 2. um dann die Antwort auszulesen:
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323193112.png "Screenshot Titel")
+![GET auf Jira/forms/cloud/CloudID/issue/key/form/FormID/format/answers](/images/Pasted_image_20260323193112.png "Screenshot Get Forms Answer")
 ### Filtern auf Projektmanagement-Tickets
 
 Wenn ich die Antworten habe, gehe ich diese Step by Step durch und prüfe, ob es sich bei diesem Ticket um ein Ticket mit Vorlage "Projektmanagement" handelt. Bei sieht das dann so aus:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323193215.png "Screenshot Titel")
+![Condition, in der geprüft wird, ob als Antwort "Projektmanagement" steht](/images/Pasted_image_20260323193215.png "Screenshot Condition template = Projektmanagement")
+
 ```bash
 body('Filter_array:_Answers')[0]['answer']
 ```
@@ -101,7 +102,7 @@ Jedes Ticket muss erst von einem festen Personenkreis approved werden, bevor Tea
 
 Das Approval steht in meinem Fall in den Ticketinformationen. Hierzu ruf ich die Ticketinformationen wie folgt ab:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323194017.png "Screenshot Titel")
+![Tickets abrufen mit GET JiraURL/issue/key](/images/Pasted_image_20260323194017.png "Screenshot Ticket Infos abrufen")
 
 In der Antwort steht die Approval-Information in einem Customfield (hier das customfield_10045 - das kann man sonst vorab auslesen)
 
@@ -111,26 +112,27 @@ body('HTTP:_GET_Ticket_Infos')['fields']['customfield_10045'][0]['finalDecision'
 
 Wenn hier nun 'approved' drin steht, darf das zugehörige Teams etc. erstellt werden. Dies wird über eine Condition einmal geprüft:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260323194550.png "Screenshot Titel")
+![Condition, ob Final Desicion (code oben) = approved ist](/images/Pasted_image_20260323194550.png "Screenshot Approval")
+
 ## Nun nur noch die GUID rauslesen...
 Nachdem das Approval durch ist, wird durch einen bereits vorhandenen Prozess das Teams Team erstellt. Die passiert in drei Schritten, die jeweils in Jira als Kommentar notiert wird:
 
 ### Schritt 1: die Eingaben im Formular werden überprüft
 Zuerst werden die getätigten Angaben im Formular überprüft, um sicher zu stellen, dass die Emailadressen korrekt sind, dass die User auch interne User sind und dass Owner und Co-Owner unterschiedliche User sind. In Jira sieht das dann wie folgt aus:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260324144948.png "Screenshot Titel")
+![Rückinfo zur Auswertung der genannten Punkte in einem Kommentar gegliedert. Hinter jedem OK ist ein grüner Haken](/images/Pasted_image_20260324144948.png "Screenshot Formular Check")
 
 ### Schritt 2: das Team wird erstellt
 Der Name des Teams ist ja bereits im Formular eingetragen, dieser wird entsprechend übernommen und intern mit dem Standortkürzel für die M365-Gruppe noch ergänzt.
 Der Schritt zur Erstellung des Teams sieht dann in der Doku so aus:
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260324145229.png "Screenshot Titel")
+![Rückinfo, dass das Team erstellt wird](/images/Pasted_image_20260324145229.png "Screenshot Team wird erstellt")
 
 ### Schritt 3: Team ist erfolgreich erstellt worden
 Wenn das Team bzw. die M365 erfolgreich erstellt wurde, bekommen wir darüber eine letzte Notiz, die für den weiteren Prozess zwei wichtige Punkte enthält:
 - die Info, dass der Prozess erfolgreich durchgeführt wurde
 - die ID der M365 Gruppe
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260324145605.png "Screenshot Titel")
+![Team erfolgreich erstellt. Inkl. Angaben zu ID, Displayname, Description etc.](/images/Pasted_image_20260324145605.png "Screenshot Team erstellt")
 
 Und genau dieser Kommentar wird für das weitere Vorgehen benötigt. Um ihn auszulesen können, brauchen wir in Power Automate ein paar Steps
 
@@ -140,15 +142,16 @@ Die Kommentare als solche werden direkt über die Ticket-Infos von oben ausgelie
 
 Zuerst prüfe ich, ob der Titel des Kommentars lautet "PROCESSING SUCCESS: Finished to create team" - denn dann weiss ich, ob dass ich beim korrekten Kommentar bin.
 
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260324150201.png "Screenshot Titel")
+![Condition, um zu prüfen, ob im Kommentartitel "Porcessing success, Finished to create team" enthalten st](/images/Pasted_image_20260324150201.png "Screenshot Condition Finished to create team")
 
 Danach muss ich noch überflüssige Zeichen ersetzen,
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260324150242.png "Screenshot Titel")
+![Ersetzen von Sonderzeichen, zum weiteren Verarbeiten](/images/Pasted_image_20260324150242.png "Screenshot Replace Sonderzeichen")
 
 das JSON parsen (nicht zwingend notwendig)
-![Alternativer Text zur Erklärung](/images/Pasted_image_20260324150329.png "Screenshot Titel")
 
-... und schon hab ich die GUID, die ich dann entsprechend für alles weitere verwenden kann
+![Parse Json aus dem letzten Schritt](/images/Pasted_image_20260324150329.png "Screenshot Parse Json")
+
+... und schon hab ich die GUID direkt aus dem Parse JSON, die ich dann entsprechend für alles weitere verwenden kann
 
 # Wie gehts weiter?
 Mit der GUID gehen wir aktuell auf eine Azure Logic App zu, mit der wir die weiteren Schritte durchführen - dieser Teil kommt in einem weiteren Blogartikel dann dran. Seid gespannt drauf.
