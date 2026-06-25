@@ -1,12 +1,12 @@
 ---
 title: 'M365 MCP Server selbst hosten — mit Managed Identity und OAuth'
-date: 2026-06-24
-draft: true
+date: 2026-06-25
+draft: false
 description: 'Wie ihr einen M365 MCP Server in Azure Container Apps betreibt, mit Managed Identity gegen die Graph API authentifiziert und per OAuth an Copilot Studio anbindet. Schritt für Schritt, mit allen Stolpersteinen.'
 tags: ['M365', 'MCP', 'Copilot Studio', 'Azure Container Apps', 'Managed Identity', 'Microsoft Graph', 'OAuth', 'Tutorial']
-categories: ['Azure']
+categories: ['Copilot Studio','MCP','Power Platform']
 cover:
-  image: 'https://the-raccoon-way.de/images/Artikel_M365MCP.png'
+  image: 'https://the-raccoon-way.de//images/Artikel_M365MCP.png'
   alt: 'M365 MCP Server mit Managed Identity'
   hiddenInList: true
 ---
@@ -97,7 +97,7 @@ Einstellung muss sein: **Read and write permissions** ✅
 
 Ohne diese Einstellung schlägt der Push nach GHCR mit einem 403 fehl.
 
-![GitHub Repo Settings – Workflow permissions mit aktivierter "Read and write permissions" Option](images/M365MCP_GitHubPermissions.png "GitHub Actions Permissions")
+![GitHub Repo Settings – Workflow permissions mit aktivierter "Read and write permissions" Option](/images/M365MCP_GitHubPermissions.png "GitHub Actions Permissions")
 
 ### 2.2 Ersten Build triggern
 
@@ -111,7 +111,7 @@ Entweder einen leeren Commit pushen oder direkt manuell starten:
 
 → `github.com/<dein-username>?tab=packages` → Paket `mcp-m365-graph-server` mit Tag `latest` muss sichtbar sein
 
-![GitHub Packages Übersicht mit sichtbarem Paket mcp-m365-graph-server:latest](images/M365MCP_GHCR.png "Image in GHCR")
+![GitHub Packages Übersicht mit sichtbarem Paket mcp-m365-graph-server:latest](/images/M365MCP_GHCR.png "Image in GHCR")
 
 > **Erst wenn das Image in GHCR sichtbar ist — weiter mit Phase 3.**
 
@@ -133,7 +133,7 @@ Der PAT wird an einer einzigen Stelle gebraucht: als Registry-Passwort, damit Az
 
 → **Generate token** → Token sofort kopieren — wird gleich in Phase 4 gebraucht.
 
-![GitHub – Classic PAT Erstellungsseite mit markiertem read:packages Scope](images/M365MCP_PAT.png "Classic PAT erstellen")
+![GitHub – Classic PAT Erstellungsseite mit markiertem read:packages Scope](/images/M365MCP_PAT.png "Classic PAT erstellen")
 
 > ⚠️ Wenn der PAT irgendwann abläuft, schlägt der Image Pull beim nächsten Neustart der Container App fehl. Rechtzeitig erneuern und in der Container App unter **Containers → Edit and deploy** aktualisieren.
 
@@ -197,7 +197,7 @@ Den vorausgefüllten Quickstart-Container entfernen und neu eintragen:
 
 > ⚠️ `ghcr.io` kommt **nur** ins Registry-Feld. Im Image-Feld steht **nur** `<username>/mcp-m365-graph-server:latest` — kein `ghcr.io/` davor. Andernfalls entsteht `ghcr.io/ghcr.io/...` und der Pull schlägt fehl.
 
-![Container App Wizard – Tab Container mit korrekt ausgefüllten Registry- und Image-Feldern](images/M365MCP_Container.png "Container konfigurieren")
+![Container App Wizard – Tab Container mit korrekt ausgefüllten Registry- und Image-Feldern](/images/M365MCP_Container.png "Container konfigurieren")
 
 **Tab Ingress:**
 
@@ -239,7 +239,7 @@ Wird in Phase 9 (Copilot Studio) gebraucht.
 
 → **Object (Principal) ID** notieren — wird direkt in Phase 6 gebraucht.
 
-![Identity-Tab der Container App mit Status "On" und sichtbarer Object (Principal) ID](images/M365MCP_Identity.png "Managed Identity aktivieren")
+![Identity-Tab der Container App mit Status "On" und sichtbarer Object (Principal) ID](/images/M365MCP_Identity.png "Managed Identity aktivieren")
 
 ---
 
@@ -432,13 +432,13 @@ Danach erscheint das OAuth-Formular:
 
 > ℹ️ **Warum Client Secret und nicht PKCE?** Copilot Studio müsste sich für PKCE zuerst am `/register` Endpoint des MCP Servers anmelden — die OAuth Middleware blockt diesen Call aber, weil er selbst keinen Token mitbringt. Henne-Ei-Problem. Copilot Studio bietet keine Option ohne Client Secret, das ist eine Plattformbeschränkung.
 
-![Copilot Studio – MCP Action OAuth-Formular mit ausgefüllten Feldern](images/M365MCP_CopilotStudio_OAuth.png "OAuth Konfiguration")
+![Copilot Studio – MCP Action OAuth-Formular mit ausgefüllten Feldern](/images/M365MCP_CopilotStudio_OAuth.png "OAuth Konfiguration")
 
 ### 9.3 Tools aktivieren & publizieren
 
 → Alle Tools aktivieren (Master-Toggle oben links) → **Save → Publish**
 
-![Copilot Studio – MCP Action mit aufgelöster Tool-Liste (alle aktiviert)](images/M365MCP_CopilotStudio_Tools.png "Tools aktiviert")
+![Copilot Studio – MCP Action mit aufgelöster Tool-Liste (alle aktiviert)](/images/M365MCP_CopilotStudio_Tools.png "Tools aktiviert")
 
 ---
 
@@ -460,7 +460,7 @@ Falls Web-Plattform bereits vorhanden: **Redirect URIs → + Add URI** → URI e
 
 > ⚠️ Ohne diesen Schritt schlägt jeder Login-Versuch in Copilot Studio mit `AADSTS50011: The redirect URI specified in the request does not match` fehl. Der Agent zeigt dabei nur eine generische Fehlermeldung — der eigentliche Grund steckt tief im Entra-Log.
 
-![Entra – Authentication-Seite mit eingetragener Redirect URI aus Copilot Studio](images/M365MCP_RedirectURI.png "Redirect URI nachtragen")
+![Entra – Authentication-Seite mit eingetragener Redirect URI aus Copilot Studio](/images/M365MCP_RedirectURI.png "Redirect URI nachtragen")
 
 ---
 
@@ -661,4 +661,4 @@ Bei mir erstellt Oskar inzwischen auf Zuruf Teams-Gruppen, legt SharePoint-Seite
 
 Was ihr mit eurem M365 Agent baut, interessiert mich. Schreibt mir auf [LinkedIn](https://www.linkedin.com/in/danielazurwerra/) — ich beisse auch nicht.
 
-![Oskar in Aktion – z.B. beim Erstellen einer Teams-Gruppe via Chat-Nachricht](images/M365MCP_Oskar_Action.png "Oskar erstellt eine Teams-Gruppe")
+![Oskar in Aktion – z.B. beim Erstellen einer Teams-Gruppe via Chat-Nachricht](/images/M365MCP_Oskar_Action.png "Oskar erstellt eine Teams-Gruppe")
