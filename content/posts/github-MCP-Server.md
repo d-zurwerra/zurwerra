@@ -4,7 +4,7 @@ date: 2026-05-20
 draft: false
 description: 'Wie ihr einen eigenen GitHub MCP Server in Azure Container Apps aufbaut und an Copilot Studio anbindet – ohne GitHub Copilot Lizenz. Schritt für Schritt, mit allen Stolpersteinen.'
 tags: ['GitHub', 'MCP', 'Copilot Studio', 'Azure Container Apps', 'GitHub App', 'Tutorial']
-categories: ['Power Platform']
+categories: ['Power Platform', 'Copilot Studio', 'MCP']
 cover:
   image: 'https://the-raccoon-way.de/images/Artikel_GitHubMCP.png'
   alt: 'GitHub MCP Server für Copilot Studio'

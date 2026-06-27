@@ -42,6 +42,10 @@ paginate = 10
   name = 'youtube'
   url = 'https://www.youtube.com/@TheRaccoonWay'
 
+[[params.socialIcons]]
+  name = 'github'
+  url = 'https://github.com/d-zurwerra'
+
 [[menu.main]]
   name = 'Kategorien'
   url = '/categories/'
