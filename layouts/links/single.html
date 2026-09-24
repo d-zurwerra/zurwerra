@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Title }} · {{ .Site.Title }}</title>
+{{ if .Description }}<meta name="description" content="{{ .Description }}">{{ end }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D0D1A;
+    --blue: #3B5BDB;
+    --purple: #7B2FBE;
+    --text: #F0F0FF;
+    --dim: #A0A0C0;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px 64px;
+  }
+  .card {
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+  }
+  .banner {
+    width: 100%;
+    border-radius: 16px;
+    display: block;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 0.5px;
+    margin: 0 0 6px;
+  }
+  .tagline {
+    color: var(--dim);
+    font-size: 15px;
+    margin: 0 0 32px;
+    letter-spacing: 0.3px;
+  }
+  .description {
+    font-size: 15px;
+    color: var(--text);
+    margin: 0 0 32px;
+    line-height: 1.5;
+    max-width: 40ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .links a {
+    display: block;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .links a:hover {
+    filter: brightness(1.1);
+  }
+  .links a:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .links a { transition: filter 0.15s ease; }
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--dim);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    {{ with .Resources.GetMatch "images/*" }}
+      <img class="banner" src="{{ .RelPermalink }}" alt="Oskar, das Maskottchen von The Raccoon Way">
+    {{ end }}
+    <h1>The Raccoon Way</h1>
+    <p class="tagline">From No-Code to No-Limits</p>
+    {{ if .Description }}<p class="description">{{ .Description }}</p>{{ end }}
+    <ul class="links">
+      {{ range .Params.links }}
+        <li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .label }}</a></li>
+      {{ end }}
+    </ul>
+    <footer>&copy; {{ now.Format "2006" }} The Raccoon Way</footer>
+  </div>
+</body>
+</html>
