@@ -1,0 +1,26 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ .Site.Title | transform.XMLEscape | safeHTML }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ .Site.Params.description | transform.XMLEscape | safeHTML }}</description>
+    <language>de</language>
+    {{- with .OutputFormats.Get "RSS" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType.Type | safeHTML }}
+    {{- end }}
+    {{- range where .Site.RegularPages "Section" "posts" }}
+    {{- if .Params.tags }}
+    <item>
+      <title>{{ .Title | transform.XMLEscape | safeHTML }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ .Description | default .Summary | plainify | transform.XMLEscape | safeHTML }}</description>
+      {{- range (union .Params.tags .Params.categories) }}
+      <category>{{ . | transform.XMLEscape | safeHTML }}</category>
+      {{- end }}
+    </item>
+    {{- end }}
+    {{- end }}
+  </channel>
+</rss>
