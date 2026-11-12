@@ -1,0 +1,12 @@
+# {{ site.Title }}
+
+> {{ site.Params.description }} Autorin: {{ site.Params.author }}. Sprache: Deutsch.
+
+## Artikel
+{{ range where site.RegularPages "Section" "posts" -}}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{ end }}
+## Mehr
+- [Über mich]({{ site.Home.Permalink }}posts/ueber-mich/)
+- [YouTube](https://www.youtube.com/@TheRaccoonWay)
+- [LinkedIn](https://www.linkedin.com/in/danielazurwerra/)
