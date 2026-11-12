@@ -1,0 +1,15 @@
+# The Raccoon Way
+
+> Praxiswissen zu Power Platform, Power Automate, Copilot Studio und Azure von Daniela Zurwerra: Tutorials, MCP-Server und Low-Code-Automatisierung. Autorin: Daniela Zurwerra. Sprache: Deutsch.
+
+## Artikel
+- [Über mich](https://the-raccoon-way.de/posts/ueber-mich/): Wer ich bin und warum ich diesen Blog schreibe
+- [M365 MCP Server selbst hosten — mit Managed Identity und OAuth](https://the-raccoon-way.de/posts/m365-mcp-server-oauth/): Wie ihr einen M365 MCP Server in Azure Container Apps betreibt, mit Managed Identity gegen die Graph API authentifiziert und per OAuth an Copilot Studio anbindet. Schritt für Schritt, mit allen Stolpersteinen.
+- [GitHub MCP Server selbst hosten — für Copilot Studio Agents](https://the-raccoon-way.de/posts/github-mcp-server/): Wie ihr einen eigenen GitHub MCP Server in Azure Container Apps aufbaut und an Copilot Studio anbindet – ohne GitHub Copilot Lizenz. Schritt für Schritt, mit allen Stolpersteinen.
+- [Jira trifft Power Automate – wenn der Standard Connector nicht reicht](https://the-raccoon-way.de/posts/jira-power-automate-http/): Wie man mit HTTP Requests statt dem Standard Connector Jira Formulare ausliest und die Daten in Power Automate weiterverarbeitet – inklusive Lösungsansatz und praktischem Beispiel.
+- [LinkedIn CustomConnector](https://the-raccoon-way.de/posts/linkedin-customconnector/): Wie ihr mit einem Custom Connector und Power Automate LinkedIn Posts direkt aus SharePoint heraus automatisiert erstellen könnt – Schritt für Schritt erklärt, inklusive vereinfachter Oberfläche ohne JSON-Kenntnisse.
+
+## Mehr
+- [Über mich](https://the-raccoon-way.de/posts/ueber-mich/)
+- [YouTube](https://www.youtube.com/@TheRaccoonWay)
+- [LinkedIn](https://www.linkedin.com/in/danielazurwerra/)
