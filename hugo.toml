@@ -5,9 +5,18 @@ title = 'The Raccoon Way'
 theme = 'PaperMod'
 paginate = 10
 
+[outputFormats.llms]
+  baseName = 'llms'
+  mediaType = 'text/plain'
+  isPlainText = true
+  notAlternative = true
+
+[outputs]
+  home = ['HTML', 'RSS', 'llms']
+
 [params]
   author = 'Daniela Zurwerra'
-  description = 'From No-Code to No-Limits'
+  description = 'Praxiswissen zu Power Platform, Power Automate, Copilot Studio und Azure von Daniela Zurwerra: Tutorials, MCP-Server und Low-Code-Automatisierung.'
   keywords = ['Power Platform', 'Power Automate', 'Low Code', 'Automatisierung']
   ShowReadingTime = true
   ShowPostNavLinks = true
