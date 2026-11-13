@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # nötig, damit die Action nach gh-pages pushen darf
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,7 +19,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.168.0'
           extended: true
 
       - name: Build
