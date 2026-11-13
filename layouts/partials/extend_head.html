@@ -4,3 +4,6 @@
 </script>
 {{- end }}
 <style>.profile-text{max-width:34em;margin:.5em auto 0}.profile-text p{margin:0 0 1em}</style>
+{{- with site.Params.analytics.umami }}{{ if hugo.IsProduction }}
+<script defer src="{{ .jsURL }}" data-website-id="{{ .websiteID }}"></script>
+{{- end }}{{ end }}

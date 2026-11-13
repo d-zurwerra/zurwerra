@@ -64,3 +64,8 @@ paginate = 10
   name = 'Impressum'
   url = '/impressum/'
   weight = 20
+
+[[menu.main]]
+  name = 'Datenschutz'
+  url = '/datenschutz/'
+  weight = 30
