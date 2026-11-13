@@ -11,7 +11,7 @@ jobs:
     permissions:
       contents: write # nötig, damit die Action nach gh-pages pushen darf
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: true
           fetch-depth: 0
