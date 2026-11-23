@@ -39,6 +39,9 @@ paginate = 10
     [[params.profileMode.buttons]]
       name = 'Blog'
       url = '/posts'
+    [[params.profileMode.buttons]]
+      name = 'Links'
+      url = '/links/'
 
   [params.cover]
     hiddenInList = true
@@ -53,7 +56,7 @@ paginate = 10
 
 [[params.socialIcons]]
   name = 'github'
-  url = 'https://github.com/d-zurwerra'
+  url = 'https://github.com/TheRaccoonWay'
 
 [[menu.main]]
   name = 'Kategorien'
